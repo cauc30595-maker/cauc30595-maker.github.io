@@ -226,12 +226,11 @@
         </button>
     </div>
 
-    <!-- HOME PAGE -->
     <div id="home-page" class="page-view">
         <div class="market-grid">
             <div class="item-card can" onclick="openAnalytics('watering_can')">
                 <div class="img-container">
-                    <img src="https://static.wikia.nocookie.net/growagarden27847/images/f/fd/SuperWateringCan.png/revision/latest/scale-to-width/360?cb=20260612205729" alt="Super Watering Can">
+                    <img src="https://static.wikia.nocookie.net/growagarden27847/images/f/fd/SuperWateringCan.png" alt="Super Watering Can">
                 </div>
                 <h3>Super Watering Can</h3>
                 <div class="item-price" id="home-price-watering_can">--</div>
@@ -243,7 +242,7 @@
 
             <div class="item-card sprinkler" onclick="openAnalytics('sprinkler')">
                 <div class="img-container">
-                    <img src="https://static.wikia.nocookie.net/growagarden27847/images/f/fc/SuperSprinkler.png/revision/latest?cb=20260612205938" alt="Super Sprinkler">
+                    <img src="https://static.wikia.nocookie.net/growagarden27847/images/f/fc/SuperSprinkler.png" alt="Super Sprinkler">
                 </div>
                 <h3>Super Sprinkler</h3>
                 <div class="item-price" id="home-price-sprinkler">--</div>
@@ -255,7 +254,7 @@
 
             <div class="item-card legend" onclick="openAnalytics('legend_sprinkler')">
                 <div class="img-container">
-                    <img src="https://static.wikia.nocookie.net/growagarden27847/images/d/d8/LegendarySprinkler.png/revision/latest/scale-to-width/360?cb=20260612205838" alt="Legendary Sprinkler">
+                    <img src="https://static.wikia.nocookie.net/growagarden27847/images/d/d8/LegendarySprinkler.png" alt="Legendary Sprinkler">
                 </div>
                 <h3>Legendary Sprinkler</h3>
                 <div class="item-price" id="home-price-legend_sprinkler">--</div>
@@ -267,7 +266,6 @@
         </div>
     </div>
 
-    <!-- ANALYTICS DETAILS PAGE -->
     <div id="details-page" class="page-view" style="display:none;">
         <div class="back-bar" onclick="backToHome()">
             <img src="https://png.pngtree.com/png-clipart/20230921/ourmid/pngtree-design-return-arrow-png-image_10152656.png" class="gui-icon" alt="Back Arrow">
@@ -288,7 +286,6 @@
         </div>
     </div>
 
-    <!-- PROFILE / ACCOUNT / ADMIN CONFIG PAGE -->
     <div id="profile-page" class="page-view" style="display:none;">
         <div class="back-bar" onclick="backToHome()">
             <img src="https://png.pngtree.com/png-clipart/20230921/ourmid/pngtree-design-return-arrow-png-image_10152656.png" class="gui-icon" alt="Back Arrow">
@@ -377,19 +374,19 @@
     const coreDatabase = {
         watering_can: {
             name: "Super Watering Can",
-            img: "https://static.wikia.nocookie.net/growagarden27847/images/f/fd/SuperWateringCan.png/revision/latest/scale-to-width/360?cb=20260612205729",
+            img: "https://static.wikia.nocookie.net/growagarden27847/images/f/fd/SuperWateringCan.png",
             chartColor: "#ef4444", gradientColor: "rgba(239, 68, 68, 0.12)",
             chartData: [1000000, 15000000, 9500000, 6000000, 4200000, 3000000]
         },
         sprinkler: {
             name: "Super Sprinkler",
-            img: "https://static.wikia.nocookie.net/growagarden27847/images/f/fc/SuperSprinkler.png/revision/latest?cb=20260612205938",
+            img: "https://static.wikia.nocookie.net/growagarden27847/images/f/fc/SuperSprinkler.png",
             chartColor: "#10b981", gradientColor: "rgba(16, 185, 129, 0.12)",
             chartData: [3000000, 2000000, 5000000, 4000000, 10000000, 14000000]
         },
         legend_sprinkler: {
             name: "Legendary Sprinkler",
-            img: "https://static.wikia.nocookie.net/growagarden27847/images/d/d8/LegendarySprinkler.png/revision/latest/scale-to-width/360?cb=20260612205838",
+            img: "https://static.wikia.nocookie.net/growagarden27847/images/d/d8/LegendarySprinkler.png",
             chartColor: "#f59e0b", gradientColor: "rgba(245, 158, 11, 0.12)",
             chartData: [1200000, 900000, 4000000, 3500000, 12000000, 18000000]
         }
@@ -453,7 +450,6 @@
 
     function backToHome() { viewSwitcher('home'); renderHomePrices(); }
 
-    // Đổi tên trang details thành Analytics
     function openAnalytics(key) {
         const db = loadDB();
         const item = db[key];
