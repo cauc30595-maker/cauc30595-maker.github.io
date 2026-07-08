@@ -59,12 +59,17 @@
             padding: 40px;
             transform: scale(0.99);
             animation: containerAppearing 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-            will-change: transform, opacity;
         }
 
         @keyframes containerAppearing {
             to { transform: scale(1); opacity: 1; }
         }
+
+        .gui-icon {
+            width: 20px; height: 20px; object-fit: contain; vertical-align: middle;
+            border-radius: 4px;
+        }
+        .gui-icon.big-header { width: 24px; height: 24px; }
 
         .top-navbar {
             display: flex; justify-content: space-between; align-items: center;
@@ -201,7 +206,8 @@
     <div class="top-navbar">
         <div class="brand-title" onclick="backToHome()">GROW A GARDEN VALUE</div>
         <button id="profile-nav-btn" class="nav-btn" onclick="showProfilePage()">
-            <span>⚙️</span> Tài khoản & Quản lý
+            <img src="https://marketplace.canva.com/oTo-0/MAG9-7oTo-0/1/tl/canva-white-gear-icon-on-black-background-MAG9-7oTo-0.png" class="gui-icon" alt="Gear">
+            Tài khoản & Quản lý
         </button>
     </div>
 
@@ -209,34 +215,37 @@
         <div class="market-grid">
             <div class="item-card can" onclick="openAnalytics('watering_can')">
                 <div class="img-container">
-                    <img src="https://img.icons8.com/fluency/140/watering-can.png" alt="Super Watering Can">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsgFmNeBi9td5ZTA6A3xU72n7CMpnXGwUdlLaqWe4tHw&s" alt="Super Watering Can">
                 </div>
                 <h3>Super Watering Can</h3>
                 <div class="item-price" id="home-price-watering_can">--</div>
                 <button class="action-btn">
-                    <span>📊</span> Xem thống kê giá
+                    <img src="https://thumb.silhouette-ac.com/t/10/10cc9801a4f48dd11039a26781478e28_t.jpeg" class="gui-icon" alt="Stats">
+                    Xem thống kê giá
                 </button>
             </div>
 
             <div class="item-card sprinkler" onclick="openAnalytics('sprinkler')">
                 <div class="img-container">
-                    <img src="https://img.icons8.com/fluency/140/sprinkler.png" alt="Super Sprinkler">
+                    <img src="https://static.wikia.nocookie.net/growagarden27847/images/f/fc/SuperSprinkler.png" alt="Super Sprinkler">
                 </div>
                 <h3>Super Sprinkler</h3>
                 <div class="item-price" id="home-price-sprinkler">--</div>
                 <button class="action-btn">
-                    <span>📊</span> Xem thống kê giá
+                    <img src="https://thumb.silhouette-ac.com/t/10/10cc9801a4f48dd11039a26781478e28_t.jpeg" class="gui-icon" alt="Stats">
+                    Xem thống kê giá
                 </button>
             </div>
 
             <div class="item-card legend" onclick="openAnalytics('legend_sprinkler')">
                 <div class="img-container">
-                    <img src="https://img.icons8.com/color/140/sprinkler.png" alt="Legendary Sprinkler">
+                    <img src="https://static.wikia.nocookie.net/growagarden27847/images/d/d8/LegendarySprinkler.png" alt="Legendary Sprinkler">
                 </div>
                 <h3>Legendary Sprinkler</h3>
                 <div class="item-price" id="home-price-legend_sprinkler">--</div>
                 <button class="action-btn">
-                    <span>📊</span> Xem thống kê giá
+                    <img src="https://thumb.silhouette-ac.com/t/10/10cc9801a4f48dd11039a26781478e28_t.jpeg" class="gui-icon" alt="Stats">
+                    Xem thống kê giá
                 </button>
             </div>
         </div>
@@ -348,19 +357,19 @@
     const coreDatabase = {
         watering_can: {
             name: "Super Watering Can",
-            img: "https://img.icons8.com/fluency/140/watering-can.png",
+            img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsgFmNeBi9td5ZTA6A3xU72n7CMpnXGwUdlLaqWe4tHw&s",
             chartColor: "#ef4444", gradientColor: "rgba(239, 68, 68, 0.12)",
             chartData: [1000000, 15000000, 9500000, 6000000, 4200000, 3000000]
         },
         sprinkler: {
             name: "Super Sprinkler",
-            img: "https://img.icons8.com/fluency/140/sprinkler.png",
+            img: "https://static.wikia.nocookie.net/growagarden27847/images/f/fc/SuperSprinkler.png",
             chartColor: "#10b981", gradientColor: "rgba(16, 185, 129, 0.12)",
             chartData: [3000000, 2000000, 5000000, 4000000, 10000000, 14000000]
         },
         legend_sprinkler: {
             name: "Legendary Sprinkler",
-            img: "https://img.icons8.com/color/140/sprinkler.png",
+            img: "https://static.wikia.nocookie.net/growagarden27847/images/d/d8/LegendarySprinkler.png",
             chartColor: "#f59e0b", gradientColor: "rgba(245, 158, 11, 0.12)",
             chartData: [1200000, 900000, 4000000, 3500000, 12000000, 18000000]
         }
