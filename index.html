@@ -41,6 +41,7 @@
         body::before {
             content: '';
             position: fixed; inset: 0; z-index: -1;
+            /* Bạn có thể tải ảnh nền này về lưu thành background.jpg bỏ vào assets luôn nếu muốn ổn định */
             background: url('https://cdn-media.sforum.vn/storage/app/media/phuonganh/phuonganh/code-grow-garden-4(1).jpg') no-repeat center center;
             background-size: cover;
             filter: blur(8px) brightness(0.95);
@@ -221,7 +222,7 @@
     <div class="top-navbar">
         <div class="brand-title" onclick="backToHome()">GROW A GARDEN VALUE</div>
         <button id="profile-nav-btn" class="nav-btn" onclick="showProfilePage()">
-            <img src="https://vncsi.com.vn/images/products/2023/11/06/original/user-settings-interface-symbol-of-a-man-with-a-cogwheel-on-the-head-svgrepo-com_.svg" class="gui-icon" alt="User Settings">
+            <img src="assets/user_icon.png" class="gui-icon" alt="User Settings">
             Tài khoản & Quản lý
         </button>
     </div>
@@ -230,36 +231,36 @@
         <div class="market-grid">
             <div class="item-card can" onclick="openAnalytics('watering_can')">
                 <div class="img-container">
-                    <img src="https://static.wikia.nocookie.net/growagarden27847/images/f/fd/SuperWateringCan.png" alt="Super Watering Can">
+                    <img src="assets/watering_can.png" alt="Super Watering Can">
                 </div>
                 <h3>Super Watering Can</h3>
                 <div class="item-price" id="home-price-watering_can">--</div>
                 <button class="action-btn">
-                    <img src="https://png.pngtree.com/png-clipart/20230401/original/pngtree-line-chart-icon-png-image_9016390.png" class="gui-icon btn-incard" alt="Analytics Icon">
+                    <img src="assets/chart_icon.png" class="gui-icon btn-incard" alt="Analytics Icon">
                     Xem thống kê giá
                 </button>
             </div>
 
             <div class="item-card sprinkler" onclick="openAnalytics('sprinkler')">
                 <div class="img-container">
-                    <img src="https://static.wikia.nocookie.net/growagarden27847/images/f/fc/SuperSprinkler.png" alt="Super Sprinkler">
+                    <img src="assets/sprinkler.png" alt="Super Sprinkler">
                 </div>
                 <h3>Super Sprinkler</h3>
                 <div class="item-price" id="home-price-sprinkler">--</div>
                 <button class="action-btn">
-                    <img src="https://png.pngtree.com/png-clipart/20230401/original/pngtree-line-chart-icon-png-image_9016390.png" class="gui-icon btn-incard" alt="Analytics Icon">
+                    <img src="assets/chart_icon.png" class="gui-icon btn-incard" alt="Analytics Icon">
                     Xem thống kê giá
                 </button>
             </div>
 
             <div class="item-card legend" onclick="openAnalytics('legend_sprinkler')">
                 <div class="img-container">
-                    <img src="https://static.wikia.nocookie.net/growagarden27847/images/d/d8/LegendarySprinkler.png" alt="Legendary Sprinkler">
+                    <img src="assets/legend_sprinkler.png" alt="Legendary Sprinkler">
                 </div>
                 <h3>Legendary Sprinkler</h3>
                 <div class="item-price" id="home-price-legend_sprinkler">--</div>
                 <button class="action-btn">
-                    <img src="https://png.pngtree.com/png-clipart/20230401/original/pngtree-line-chart-icon-png-image_9016390.png" class="gui-icon btn-incard" alt="Analytics Icon">
+                    <img src="assets/chart_icon.png" class="gui-icon btn-incard" alt="Analytics Icon">
                     Xem thống kê giá
                 </button>
             </div>
@@ -268,7 +269,7 @@
 
     <div id="details-page" class="page-view" style="display:none;">
         <div class="back-bar" onclick="backToHome()">
-            <img src="https://png.pngtree.com/png-clipart/20230921/ourmid/pngtree-design-return-arrow-png-image_10152656.png" class="gui-icon" alt="Back Arrow">
+            <img src="assets/back_icon.png" class="gui-icon" alt="Back Arrow">
             Quay lại danh mục thị trường
         </div>
         <div class="detail-meta-box">
@@ -288,7 +289,7 @@
 
     <div id="profile-page" class="page-view" style="display:none;">
         <div class="back-bar" onclick="backToHome()">
-            <img src="https://png.pngtree.com/png-clipart/20230921/ourmid/pngtree-design-return-arrow-png-image_10152656.png" class="gui-icon" alt="Back Arrow">
+            <img src="assets/back_icon.png" class="gui-icon" alt="Back Arrow">
             Trở về trang chủ
         </div>
         
@@ -326,7 +327,7 @@
 
             <div class="admin-controls" id="admin-only-panel">
                 <h3 style="margin-top:0; color:#0f172a; font-weight:800; display:flex; align-items:center; gap:10px;">
-                    <img src="https://png.pngtree.com/png-clipart/20230504/original/pngtree-implement-line-icon-png-image_9139037.png" class="gui-icon big-header" alt="Admin Implementation Icon">
+                    <img src="assets/admin_icon.png" class="gui-icon big-header" alt="Admin Implementation Icon">
                     Cấu Hình Trục Thời Gian Giá Cả (Hỗ trợ viết tắt M, K)
                 </h3>
                 <div class="input-group" style="max-width: 320px;">
@@ -347,7 +348,7 @@
                     <div class="input-group"><label id="lbl-date-5">Tương lai</label><input type="text" id="m-future" style="border-color: var(--primary-green); box-shadow: 0 0 8px rgba(16,185,129,0.1);"></div>
                 </div>
                 <button class="btn-submit" style="background: linear-gradient(135deg, var(--primary-purple), #7c3aed); margin-top:20px;" onclick="saveAdminData()">
-                    <img src="https://png.pngtree.com/png-clipart/20230504/original/pngtree-implement-line-icon-png-image_9139037.png" class="gui-icon" style="filter: brightness(0) invert(1);" alt="Submit Icon">
+                    <img src="assets/admin_icon.png" class="gui-icon" style="filter: brightness(0) invert(1);" alt="Submit Icon">
                     Thực thi đồng bộ dữ liệu đồ thị
                 </button>
             </div>
@@ -374,19 +375,19 @@
     const coreDatabase = {
         watering_can: {
             name: "Super Watering Can",
-            img: "https://static.wikia.nocookie.net/growagarden27847/images/f/fd/SuperWateringCan.png",
+            img: "assets/watering_can.png",
             chartColor: "#ef4444", gradientColor: "rgba(239, 68, 68, 0.12)",
             chartData: [1000000, 15000000, 9500000, 6000000, 4200000, 3000000]
         },
         sprinkler: {
             name: "Super Sprinkler",
-            img: "https://static.wikia.nocookie.net/growagarden27847/images/f/fc/SuperSprinkler.png",
+            img: "assets/sprinkler.png",
             chartColor: "#10b981", gradientColor: "rgba(16, 185, 129, 0.12)",
             chartData: [3000000, 2000000, 5000000, 4000000, 10000000, 14000000]
         },
         legend_sprinkler: {
             name: "Legendary Sprinkler",
-            img: "https://static.wikia.nocookie.net/growagarden27847/images/d/d8/LegendarySprinkler.png",
+            img: "assets/legend_sprinkler.png",
             chartColor: "#f59e0b", gradientColor: "rgba(245, 158, 11, 0.12)",
             chartData: [1200000, 900000, 4000000, 3500000, 12000000, 18000000]
         }
