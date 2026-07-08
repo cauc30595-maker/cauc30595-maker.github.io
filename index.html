@@ -41,7 +41,6 @@
         body::before {
             content: '';
             position: fixed; inset: 0; z-index: -1;
-            /* Bạn có thể tải ảnh nền này về lưu thành background.jpg bỏ vào assets luôn nếu muốn ổn định */
             background: url('https://cdn-media.sforum.vn/storage/app/media/phuonganh/phuonganh/code-grow-garden-4(1).jpg') no-repeat center center;
             background-size: cover;
             filter: blur(8px) brightness(0.95);
@@ -149,9 +148,10 @@
             display: inline-flex; justify-content: center; align-items: center; margin-bottom: 24px;
             border: 1px solid rgba(255,255,255,0.9);
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            width: 190px; height: 190px; margin-left: auto; margin-right: auto;
         }
         .item-card:hover .img-container { transform: scale(1.06); }
-        .img-container img { width: 140px; height: 140px; object-fit: contain; }
+        .img-container img, .img-container svg { width: 140px; height: 140px; object-fit: contain; }
 
         .item-card h3 { margin: 0 0 10px 0; font-size: 24px; font-weight: 800; letter-spacing: -0.5px; }
         .item-price { font-size: 18px; color: var(--text-sub); margin-bottom: 28px; font-weight: 700; }
@@ -176,7 +176,8 @@
             display: flex; align-items: center; background: rgba(255, 255, 255, 0.65);
             padding: 30px; border-radius: 28px; border: 1px solid var(--glass-border); margin-bottom: 30px;
         }
-        .detail-meta-box img { width: 90px; height: 90px; object-fit: contain; margin-right: 25px; }
+        .detail-meta-wrapper-img { width: 90px; height: 90px; margin-right: 25px; display: flex; align-items: center; justify-content: center; }
+        .detail-meta-wrapper-img img, .detail-meta-wrapper-img svg { width: 100%; height: 100%; object-fit: contain; }
         .badge-group { display: flex; gap: 14px; margin-top: 12px; flex-wrap: wrap; }
         .status-badge { padding: 10px 22px; border-radius: 30px; font-size: 14px; font-weight: 700; border: 1px solid transparent; }
 
@@ -222,7 +223,7 @@
     <div class="top-navbar">
         <div class="brand-title" onclick="backToHome()">GROW A GARDEN VALUE</div>
         <button id="profile-nav-btn" class="nav-btn" onclick="showProfilePage()">
-            <img src="assets/user_icon.png" class="gui-icon" alt="User Settings">
+            <span style="font-size:18px;">⚙️</span>
             Tài khoản & Quản lý
         </button>
     </div>
@@ -230,38 +231,35 @@
     <div id="home-page" class="page-view">
         <div class="market-grid">
             <div class="item-card can" onclick="openAnalytics('watering_can')">
-                <div class="img-container">
-                    <img src="assets/watering_can.png" alt="Super Watering Can">
+                <div class="img-container" id="box-img-watering_can">
+                    <img src="assets/watering_can.png" onerror="handleImgError(this, 'watering_can')" alt="Super Watering Can">
                 </div>
                 <h3>Super Watering Can</h3>
                 <div class="item-price" id="home-price-watering_can">--</div>
                 <button class="action-btn">
-                    <img src="assets/chart_icon.png" class="gui-icon btn-incard" alt="Analytics Icon">
-                    Xem thống kê giá
+                    <span>📊</span> Xem thống kê giá
                 </button>
             </div>
 
             <div class="item-card sprinkler" onclick="openAnalytics('sprinkler')">
-                <div class="img-container">
-                    <img src="assets/sprinkler.png" alt="Super Sprinkler">
+                <div class="img-container" id="box-img-sprinkler">
+                    <img src="assets/sprinkler.png" onerror="handleImgError(this, 'sprinkler')" alt="Super Sprinkler">
                 </div>
                 <h3>Super Sprinkler</h3>
                 <div class="item-price" id="home-price-sprinkler">--</div>
                 <button class="action-btn">
-                    <img src="assets/chart_icon.png" class="gui-icon btn-incard" alt="Analytics Icon">
-                    Xem thống kê giá
+                    <span>📊</span> Xem thống kê giá
                 </button>
             </div>
 
             <div class="item-card legend" onclick="openAnalytics('legend_sprinkler')">
-                <div class="img-container">
-                    <img src="assets/legend_sprinkler.png" alt="Legendary Sprinkler">
+                <div class="img-container" id="box-img-legend_sprinkler">
+                    <img src="assets/legend_sprinkler.png" onerror="handleImgError(this, 'legend_sprinkler')" alt="Legendary Sprinkler">
                 </div>
                 <h3>Legendary Sprinkler</h3>
                 <div class="item-price" id="home-price-legend_sprinkler">--</div>
                 <button class="action-btn">
-                    <img src="assets/chart_icon.png" class="gui-icon btn-incard" alt="Analytics Icon">
-                    Xem thống kê giá
+                    <span>📊</span> Xem thống kê giá
                 </button>
             </div>
         </div>
@@ -269,11 +267,12 @@
 
     <div id="details-page" class="page-view" style="display:none;">
         <div class="back-bar" onclick="backToHome()">
-            <img src="assets/back_icon.png" class="gui-icon" alt="Back Arrow">
-            Quay lại danh mục thị trường
+            <span>⬅️</span> Quay lại danh mục thị trường
         </div>
         <div class="detail-meta-box">
-            <img id="item-img" src="" alt="Item Asset">
+            <div class="detail-meta-wrapper-img" id="detail-img-container">
+                <img id="item-img" src="" alt="Item Asset">
+            </div>
             <div>
                 <h2 id="item-title" style="margin:0; font-size:26px; font-weight:800; color:#0f172a;">--</h2>
                 <div class="badge-group">
@@ -289,8 +288,7 @@
 
     <div id="profile-page" class="page-view" style="display:none;">
         <div class="back-bar" onclick="backToHome()">
-            <img src="assets/back_icon.png" class="gui-icon" alt="Back Arrow">
-            Trở về trang chủ
+            <span>⬅️</span> Trở về trang chủ
         </div>
         
         <div id="guest-view" class="profile-card" style="display:none;">
@@ -327,8 +325,7 @@
 
             <div class="admin-controls" id="admin-only-panel">
                 <h3 style="margin-top:0; color:#0f172a; font-weight:800; display:flex; align-items:center; gap:10px;">
-                    <img src="assets/admin_icon.png" class="gui-icon big-header" alt="Admin Implementation Icon">
-                    Cấu Hình Trục Thời Gian Giá Cả (Hỗ trợ viết tắt M, K)
+                    🔧 Cấu Hình Trục Thời Gian Giá Cả (Hỗ trợ viết tắt M, K)
                 </h3>
                 <div class="input-group" style="max-width: 320px;">
                     <label>Chọn vật phẩm thao tác</label>
@@ -348,8 +345,7 @@
                     <div class="input-group"><label id="lbl-date-5">Tương lai</label><input type="text" id="m-future" style="border-color: var(--primary-green); box-shadow: 0 0 8px rgba(16,185,129,0.1);"></div>
                 </div>
                 <button class="btn-submit" style="background: linear-gradient(135deg, var(--primary-purple), #7c3aed); margin-top:20px;" onclick="saveAdminData()">
-                    <img src="assets/admin_icon.png" class="gui-icon" style="filter: brightness(0) invert(1);" alt="Submit Icon">
-                    Thực thi đồng bộ dữ liệu đồ thị
+                    💾 Thực thi đồng bộ dữ liệu đồ thị
                 </button>
             </div>
         </div>
@@ -358,6 +354,20 @@
 </div>
 
 <script>
+    // SVG vectors used as a replacement if files are not loaded
+    const SVGIcons = {
+        watering_can: `<svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 11h10v4a5 5 0 0 1-5 5v0a5 5 0 0 1-5-5v-4z"/><path d="M7 11V7a3 3 0 0 1 6 0v4"/><path d="M17 13h4a1 1 0 0 1 1 1v1a3 3 0 0 1-3 3h-2"/><path d="M2 13h3v4H2z"/></svg>`,
+        sprinkler: `<svg viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v6M12 11a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/><path d="M5 14l-3 1M19 14l3 1M12 21v1M7 7l-2-2M17 7l2-2"/></svg>`,
+        legend_sprinkler: `<svg viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v6M12 10a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/><circle cx="12" cy="14" r="1"/><path d="M6 14H2M22 14h-4M12 22v-4M8 8L5 5M16 8l3-3"/></svg>`
+    };
+
+    function handleImgError(imgElement, key) {
+        const parent = imgElement.parentElement;
+        if(parent) {
+            parent.innerHTML = SVGIcons[key];
+        }
+    }
+
     function generateTimelineDates() {
         const today = new Date();
         const formatDate = (dateObj) => {
@@ -374,18 +384,21 @@
 
     const coreDatabase = {
         watering_can: {
+            key: "watering_can",
             name: "Super Watering Can",
             img: "assets/watering_can.png",
             chartColor: "#ef4444", gradientColor: "rgba(239, 68, 68, 0.12)",
             chartData: [1000000, 15000000, 9500000, 6000000, 4200000, 3000000]
         },
         sprinkler: {
+            key: "sprinkler",
             name: "Super Sprinkler",
             img: "assets/sprinkler.png",
             chartColor: "#10b981", gradientColor: "rgba(16, 185, 129, 0.12)",
             chartData: [3000000, 2000000, 5000000, 4000000, 10000000, 14000000]
         },
         legend_sprinkler: {
+            key: "legend_sprinkler",
             name: "Legendary Sprinkler",
             img: "assets/legend_sprinkler.png",
             chartColor: "#f59e0b", gradientColor: "rgba(245, 158, 11, 0.12)",
@@ -458,7 +471,11 @@
         const current = item.chartData[4];
 
         document.getElementById('item-title').innerText = item.name + " Value Analytics";
-        document.getElementById('item-img').src = item.img;
+        
+        // Setup image dynamic verification or use fallback vector
+        const detailImgContainer = document.getElementById('detail-img-container');
+        detailImgContainer.innerHTML = `<img id="item-img" src="assets/${key}.png" onerror="this.parentElement.innerHTML = SVGIcons['${key}']" alt="Item Asset">`;
+
         document.getElementById('item-base-price').innerText = `Giá gốc ban đầu: ${base.toLocaleString()} sheckles`;
         
         const badge = document.getElementById('item-current-price');
