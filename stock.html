@@ -3,626 +3,179 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grow A Garden Value - Ultimate Hub</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=400;500;600;700;800&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Shop Roblox - Dịch vụ Game</title>
     <style>
-        :root {
-            --primary-blue: #3b82f6;
-            --primary-purple: #a855f7;
-            --primary-gold: #f59e0b;
-            --primary-green: #10b981;
-            --primary-red: #ef4444;
-            --glass-bg: rgba(255, 255, 255, 0.45);
-            --glass-card: rgba(255, 255, 255, 0.65);
-            --glass-border: rgba(255, 255, 255, 0.4);
-            --text-main: #0f172a;
-            --text-sub: #475569;
-            --glow-blue: rgba(59, 130, 246, 0.3);
-            --glow-purple: rgba(168, 85, 247, 0.3);
-            --glow-gold: rgba(245, 158, 11, 0.3);
-        }
-
         * {
             box-sizing: border-box;
-            user-select: none;
-            -webkit-user-select: none;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
         }
 
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            margin: 0; padding: 24px; min-height: 100vh;
-            display: flex; justify-content: center; align-items: center;
-            color: var(--text-main);
+            background-color: #f0f4f8;
+            padding: 20px;
+        }
+
+        /* Thanh tìm kiếm & Lọc */
+        .filter-bar {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filter-bar select, .filter-bar input {
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            outline: none;
+        }
+
+        .btn-search {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .btn-reset {
+            background-color: #ff4d4f;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* Lưới sản phẩm */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 15px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Thẻ sản phẩm */
+        .card {
+            background-color: #ffffff;
+            border: 2px solid #007bff;
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
             position: relative;
-            overflow-x: hidden;
         }
 
-        body::before {
-            content: '';
-            position: fixed; inset: 0; z-index: -1;
-            background: url('https://cdn-media.sforum.vn/storage/app/media/phuonganh/phuonganh/code-grow-garden-4(1).jpg') no-repeat center center;
-            background-size: cover;
-            filter: blur(8px) brightness(0.95);
-            transform: scale(1.05);
+        .card-header-tag {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: #e83e8c;
+            color: white;
+            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
         }
 
-        .window-container {
-            position: relative; width: 100%; max-width: 1200px;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 40px;
-            box-shadow: 0 40px 100px rgba(15, 23, 42, 0.15), 
-                        inset 0 1px 2px rgba(255, 255, 255, 0.5);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            padding: 40px;
-            transform: scale(0.99);
-            animation: containerAppearing 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-            will-change: transform, opacity;
+        .card-img {
+            width: 100%;
+            height: 120px;
+            background-color: #00a2ff; /* Màu nền giả lập hình ảnh */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
         }
 
-        @keyframes containerAppearing {
-            to { transform: scale(1); opacity: 1; }
+        .card-title {
+            background-color: #ff4d4f;
+            color: white;
+            width: 100%;
+            padding: 6px 4px;
+            font-size: 13px;
+            font-weight: bold;
         }
 
-        .gui-icon {
-            width: 22px; height: 22px; object-fit: contain; vertical-align: middle;
-            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
-        .gui-icon.btn-incard { width: 18px; height: 18px; }
-        .gui-icon.big-header { width: 28px; height: 28px; }
-
-        .top-navbar {
-            display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 1px solid rgba(15, 23, 42, 0.08);
-            padding-bottom: 24px; margin-bottom: 40px;
-        }
-
-        .brand-title {
-            font-size: 28px; font-weight: 800;
-            background: linear-gradient(135deg, #1d4ed8, #7e22ce);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            letter-spacing: -1px; cursor: pointer;
-            transition: transform 0.2s;
-        }
-        .brand-title:active { transform: scale(0.95); }
-
-        .nav-btn {
-            background: rgba(255, 255, 255, 0.85); border: 1px solid rgba(255, 255, 255, 0.6);
-            color: var(--text-main); padding: 12px 26px; border-radius: 18px; cursor: pointer;
-            font-weight: 700; font-size: 15px; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-            display: inline-flex; align-items: center; gap: 10px;
-        }
-        .nav-btn:hover { 
-            background: #ffffff; 
-            transform: translateY(-2px); 
-            box-shadow: 0 12px 20px rgba(15, 23, 42, 0.1); 
-        }
-        .nav-btn:hover .gui-icon { transform: rotate(15deg) scale(1.1); }
-        .nav-btn:active { transform: translateY(0); }
-
-        .page-view {
-            animation: viewFadeIn 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
-            will-change: transform, opacity;
+        .card-price-btn {
+            background-color: #007bff;
+            color: white;
+            width: 90%;
+            margin: 8px 0;
+            padding: 8px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 13px;
         }
 
-        @keyframes viewFadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        .card-price-btn:hover {
+            background-color: #0056b3;
         }
-
-        .market-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 35px;
-        }
-
-        .item-card {
-            background: var(--glass-card); border: 1px solid var(--glass-border);
-            border-radius: 32px; padding: 35px 28px; text-align: center; cursor: pointer;
-            position: relative; overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
-            will-change: transform, box-shadow, border-color;
-        }
-
-        .item-card::before {
-            content: ''; position: absolute; inset: 0; pointer-events: none;
-            background: radial-gradient(circle at 50% 0%, rgba(255,255,255,0.4), transparent 60%);
-            opacity: 0; transition: opacity 0.3s;
-        }
-        .item-card:hover::before { opacity: 1; }
-
-        .item-card:hover {
-            transform: translateY(-8px);
-            background: #ffffff;
-        }
-        .item-card:active { transform: translateY(-3px); }
-
-        .item-card.can:hover { border-color: var(--primary-blue); box-shadow: 0 20px 40px var(--glow-blue); }
-        .item-card.sprinkler:hover { border-color: var(--primary-purple); box-shadow: 0 20px 40px var(--glow-purple); }
-        .item-card.legend:hover { border-color: var(--primary-gold); box-shadow: 0 20px 40px var(--glow-gold); }
-
-        .img-container {
-            background: rgba(255, 255, 255, 0.8); border-radius: 24px; padding: 25px;
-            display: inline-flex; justify-content: center; align-items: center; margin-bottom: 24px;
-            border: 1px solid rgba(255,255,255,0.9);
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .item-card:hover .img-container { transform: scale(1.06); }
-        .img-container img { width: 140px; height: 140px; object-fit: contain; }
-
-        .item-card h3 { margin: 0 0 10px 0; font-size: 24px; font-weight: 800; letter-spacing: -0.5px; }
-        .item-price { font-size: 18px; color: var(--text-sub); margin-bottom: 28px; font-weight: 700; }
-
-        .action-btn {
-            width: 100%; background: rgba(255, 255, 255, 0.9); border: 1px solid rgba(0, 0, 0, 0.05);
-            color: var(--text-main); padding: 16px; border-radius: 20px; font-weight: 700; cursor: pointer;
-            display: flex; justify-content: center; align-items: center; gap: 10px; font-size: 15px;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
-        .item-card.can:hover .action-btn { background: var(--primary-blue); color: #fff; }
-        .item-card.sprinkler:hover .action-btn { background: var(--primary-purple); color: #fff; }
-        .item-card.legend:hover .action-btn { background: var(--primary-gold); color: #fff; }
-
-        .back-bar { 
-            display: inline-flex; align-items: center; cursor: pointer; color: var(--text-sub); 
-            font-weight: 700; margin-bottom: 28px; gap: 10px; font-size: 16px; transition: color 0.2s, transform 0.2s;
-        }
-        .back-bar:hover { color: var(--text-main); transform: translateX(-4px); }
-
-        .detail-meta-box {
-            display: flex; align-items: center; background: rgba(255, 255, 255, 0.65);
-            padding: 30px; border-radius: 28px; border: 1px solid var(--glass-border); margin-bottom: 30px;
-        }
-        .detail-meta-box img { width: 90px; height: 90px; object-fit: contain; margin-right: 25px; }
-        .badge-group { display: flex; gap: 14px; margin-top: 12px; flex-wrap: wrap; }
-        .status-badge { padding: 10px 22px; border-radius: 30px; font-size: 14px; font-weight: 700; border: 1px solid transparent; }
-
-        .chart-box-wrapper {
-            background: rgba(255, 255, 255, 0.85); padding: 30px; border-radius: 32px; height: 420px; 
-            border: 1px solid var(--glass-border); box-shadow: 0 20px 40px rgba(0,0,0,0.02);
-        }
-
-        .profile-card { background: rgba(255, 255, 255, 0.6); border-radius: 32px; border: 1px solid var(--glass-border); padding: 40px; }
-        .user-info-section { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(0, 0, 0, 0.06); padding-bottom: 25px; margin-bottom: 35px; }
-        .info-block p { margin: 10px 0; font-size: 16px; }
-        .info-label { color: var(--text-sub); font-weight: 600; }
-
-        .auth-container { max-width: 400px; margin: 20px auto; }
-        .auth-toggle-tabs { display: flex; gap: 8px; margin-bottom: 30px; background: rgba(15,23,42,0.06); padding: 6px; border-radius: 16px; }
-        .auth-tab { flex: 1; text-align: center; padding: 12px; border-radius: 12px; cursor: pointer; font-weight: 700; font-size: 15px; color: var(--text-sub); transition: all 0.2s; }
-        .auth-tab.active { background: #ffffff; color: var(--text-main); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-
-        .input-group { margin-bottom: 24px; }
-        .input-group label { display: block; font-size: 14px; color: #334155; margin-bottom: 10px; font-weight: 700; }
-        .input-group input, .input-group select {
-            width: 100%; padding: 16px 20px; border-radius: 16px; border: 1px solid rgba(15, 23, 42, 0.1);
-            background: #ffffff; color: var(--text-main); font-size: 15px; font-weight: 600; transition: all 0.2s;
-        }
-        .input-group input:focus, .input-group select:focus { border-color: var(--primary-purple); outline: none; box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.15); }
-
-        .btn-submit { 
-            width: 100%; padding: 16px; border: none; border-radius: 16px; font-weight: 700; cursor: pointer; color: #fff; font-size: 16px; 
-            transition: all 0.2s; box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            display: flex; justify-content: center; align-items: center; gap: 10px;
-        }
-        .btn-submit:hover { opacity: 0.95; transform: translateY(-1px); }
-        .btn-submit:active { transform: translateY(0); }
-
-        .admin-controls { background: rgba(255, 255, 255, 0.85); border-radius: 28px; padding: 35px; border: 1px solid var(--glass-border); }
-        .grid-6-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; margin-top: 25px; }
     </style>
 </head>
 <body>
 
-<div class="window-container">
-    
-    <div class="top-navbar">
-        <div class="brand-title" onclick="backToHome()">GROW A GARDEN VALUE</div>
-        <button id="profile-nav-btn" class="nav-btn" onclick="showProfilePage()">
-            <img src="https://vncsi.com.vn/images/products/2023/11/06/original/user-settings-interface-symbol-of-a-man-with-a-cogwheel-on-the-head-svgrepo-com_.svg" class="gui-icon" alt="User Settings">
-            Tài khoản & Quản lý
-        </button>
+    <!-- Thanh Lọc & Tìm kiếm -->
+    <div class="filter-bar">
+        <select>
+            <option>Tất cả</option>
+        </select>
+        <select>
+            <option>Mặc định</option>
+        </select>
+        <input type="text" placeholder="Tìm kiếm mã sản phẩm, trang phục,...">
+        <button class="btn-search">🔍 Tìm Kiếm</button>
+        <button class="btn-reset">🗑 Đặt Lại</button>
     </div>
 
-    <!-- HOME PAGE -->
-    <div id="home-page" class="page-view">
-        <div class="market-grid">
-            <div class="item-card can" onclick="openAnalytics('watering_can')">
-                <div class="img-container">
-                    <img src="https://static.wikia.nocookie.net/growagarden27847/images/f/fd/SuperWateringCan.png/revision/latest/scale-to-width/360?cb=20260612205729" alt="Super Watering Can">
-                </div>
-                <h3>Super Watering Can</h3>
-                <div class="item-price" id="home-price-watering_can">--</div>
-                <button class="action-btn">
-                    <img src="https://png.pngtree.com/png-clipart/20230401/original/pngtree-line-chart-icon-png-image_9016390.png" class="gui-icon btn-incard" alt="Analytics Icon">
-                    Xem thống kê giá
-                </button>
-            </div>
-
-            <div class="item-card sprinkler" onclick="openAnalytics('sprinkler')">
-                <div class="img-container">
-                    <img src="https://static.wikia.nocookie.net/growagarden27847/images/f/fc/SuperSprinkler.png/revision/latest?cb=20260612205938" alt="Super Sprinkler">
-                </div>
-                <h3>Super Sprinkler</h3>
-                <div class="item-price" id="home-price-sprinkler">--</div>
-                <button class="action-btn">
-                    <img src="https://png.pngtree.com/png-clipart/20230401/original/pngtree-line-chart-icon-png-image_9016390.png" class="gui-icon btn-incard" alt="Analytics Icon">
-                    Xem thống kê giá
-                </button>
-            </div>
-
-            <div class="item-card legend" onclick="openAnalytics('legend_sprinkler')">
-                <div class="img-container">
-                    <img src="https://static.wikia.nocookie.net/growagarden27847/images/d/d8/LegendarySprinkler.png/revision/latest/scale-to-width/360?cb=20260612205838" alt="Legendary Sprinkler">
-                </div>
-                <h3>Legendary Sprinkler</h3>
-                <div class="item-price" id="home-price-legend_sprinkler">--</div>
-                <button class="action-btn">
-                    <img src="https://png.pngtree.com/png-clipart/20230401/original/pngtree-line-chart-icon-png-image_9016390.png" class="gui-icon btn-incard" alt="Analytics Icon">
-                    Xem thống kê giá
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- ANALYTICS DETAILS PAGE -->
-    <div id="details-page" class="page-view" style="display:none;">
-        <div class="back-bar" onclick="backToHome()">
-            <img src="https://png.pngtree.com/png-clipart/20230921/ourmid/pngtree-design-return-arrow-png-image_10152656.png" class="gui-icon" alt="Back Arrow">
-            Quay lại danh mục thị trường
-        </div>
-        <div class="detail-meta-box">
-            <img id="item-img" src="" alt="Item Asset">
-            <div>
-                <h2 id="item-title" style="margin:0; font-size:26px; font-weight:800; color:#0f172a;">--</h2>
-                <div class="badge-group">
-                    <div id="item-base-price" class="status-badge" style="background: rgba(16, 185, 129, 0.08); color: var(--primary-green); border-color: rgba(16, 185, 129, 0.2);">Giá gốc ban đầu: --</div>
-                    <div id="item-current-price" class="status-badge">Hiện tại: --</div>
-                </div>
-            </div>
-        </div>
-        <div class="chart-box-wrapper">
-            <canvas id="priceAnalyticsChart"></canvas>
-        </div>
-    </div>
-
-    <!-- PROFILE / ACCOUNT / ADMIN CONFIG PAGE -->
-    <div id="profile-page" class="page-view" style="display:none;">
-        <div class="back-bar" onclick="backToHome()">
-            <img src="https://png.pngtree.com/png-clipart/20230921/ourmid/pngtree-design-return-arrow-png-image_10152656.png" class="gui-icon" alt="Back Arrow">
-            Trở về trang chủ
-        </div>
+    <!-- Danh sách sản phẩm -->
+    <div class="product-grid">
         
-        <div id="guest-view" class="profile-card" style="display:none;">
-            <div class="auth-container">
-                <div class="auth-toggle-tabs">
-                    <div id="tab-login" class="auth-tab active" onclick="switchAuthTab('login')">Đăng Nhập</div>
-                    <div id="tab-register" class="auth-tab" onclick="switchAuthTab('register')">Đăng Ký</div>
-                </div>
-
-                <h3 id="auth-title" style="text-align:center; margin-bottom:25px; font-size:16px; letter-spacing:0.5px;">HỆ THỐNG XÁC MINH BAN QUẢN TRỊ</h3>
-                
-                <div class="input-group">
-                    <label>Tên người dùng</label>
-                    <input type="text" id="auth-username" placeholder="Nhập tài khoản quản trị...">
-                </div>
-                <div class="input-group">
-                    <label>Mật khẩu</label>
-                    <input type="password" id="auth-password" placeholder="Nhập mật khẩu...">
-                </div>
-                <button id="auth-submit-btn" class="btn-submit" style="background: var(--primary-blue);" onclick="handleAuthAction()">Xác nhận đăng nhập</button>
-            </div>
+        <!-- Sản phẩm 1 -->
+        <div class="card">
+            <span class="card-header-tag">MS: 26076514</span>
+            <div class="card-img">[Ảnh Hạt Fruit]</div>
+            <div class="card-title">X1 Hạt Star Fruit</div>
+            <button class="card-price-btn">🛒 20.000 đ</button>
         </div>
 
-        <div id="authorized-view" class="profile-card" style="display:none;">
-            <div class="user-info-section">
-                <div class="info-block">
-                    <h2 style="margin:0 0 12px 0; color: var(--primary-blue); font-weight:800; letter-spacing:-0.5px;">Thông Tin Người Sử Dụng</h2>
-                    <p><span class="info-label">Tài khoản hiện tại:</span> <b id="user-display-name" style="color:#0f172a">--</b></p>
-                    <p><span class="info-label">Cấp bậc phân quyền:</span> <span id="user-role-badge" style="color: var(--primary-green); font-weight:bold;">Quản trị viên</span></p>
-                    <p><span class="info-label">Thời gian online hệ thống:</span> <span id="session-timer" style="color: #d97706; font-weight:700;">0 giây</span></p>
-                </div>
-                <button class="nav-btn" style="background: var(--primary-red); color:#fff; border-color: transparent;" onclick="handleLogout()">Đăng xuất tài khoản</button>
-            </div>
+        <!-- Sản phẩm 2 -->
+        <div class="card">
+            <span class="card-header-tag">MS: 26070647</span>
+            <div class="card-img">[Ảnh Hạt Sun]</div>
+            <div class="card-title">X2 Hạt Sun Bloom</div>
+            <button class="card-price-btn">🛒 10.000 đ</button>
+        </div>
 
-            <div class="admin-controls" id="admin-only-panel">
-                <h3 style="margin-top:0; color:#0f172a; font-weight:800; display:flex; align-items:center; gap:10px;">
-                    <img src="https://png.pngtree.com/png-clipart/20230504/original/pngtree-implement-line-icon-png-image_9139037.png" class="gui-icon big-header" alt="Admin Implementation Icon">
-                    Cấu Hình Trục Thời Gian Giá Cả (Hỗ trợ viết tắt M, K)
-                </h3>
-                <div class="input-group" style="max-width: 320px;">
-                    <label>Chọn vật phẩm thao tác</label>
-                    <select id="admin-item-select" onchange="loadAdminInputs()">
-                        <option value="watering_can">Super Watering Can</option>
-                        <option value="sprinkler">Super Sprinkler</option>
-                        <option value="legend_sprinkler">Legendary Sprinkler</option>
-                    </select>
-                </div>
+        <!-- Sản phẩm 3 -->
+        <div class="card">
+            <span class="card-header-tag">MS: 26077847</span>
+            <div class="card-img">[Ảnh Vòi Sprinkler]</div>
+            <div class="card-title">X50 Vòi Super Sprinkler</div>
+            <button class="card-price-btn">🛒 20.000 đ</button>
+        </div>
 
-                <div class="grid-6-inputs">
-                    <div class="input-group"><label id="lbl-date-0">Mốc Gốc</label><input type="text" id="m-base"></div>
-                    <div class="input-group"><label id="lbl-date-1">Ngày 1</label><input type="text" id="m-m2"></div>
-                    <div class="input-group"><label id="lbl-date-2">Ngày 2</label><input type="text" id="m-m3"></div>
-                    <div class="input-group"><label id="lbl-date-3">Hôm qua</label><input type="text" id="m-yesterday"></div>
-                    <div class="input-group"><label id="lbl-date-4">Hôm nay</label><input type="text" id="m-current" style="border-color: var(--primary-purple); box-shadow: 0 0 8px rgba(168,85,247,0.1);"></div>
-                    <div class="input-group"><label id="lbl-date-5">Tương lai</label><input type="text" id="m-future" style="border-color: var(--primary-green); box-shadow: 0 0 8px rgba(16,185,129,0.1);"></div>
-                </div>
-                <button class="btn-submit" style="background: linear-gradient(135deg, var(--primary-purple), #7c3aed); margin-top:20px;" onclick="saveAdminData()">
-                    <img src="https://png.pngtree.com/png-clipart/20230504/original/pngtree-implement-line-icon-png-image_9139037.png" class="gui-icon" style="filter: brightness(0) invert(1);" alt="Submit Icon">
-                    Thực thi đồng bộ dữ liệu đồ thị
-                </button>
-            </div>
+        <!-- Sản phẩm 4 -->
+        <div class="card">
+            <span class="card-header-tag">MS: 26070082</span>
+            <div class="card-img">[Ảnh Ghost Pepper]</div>
+            <div class="card-title">X6 Hạt Ghost Pepper</div>
+            <button class="card-price-btn">🛒 30.000 đ</button>
         </div>
 
     </div>
-</div>
-
-<script>
-    function generateTimelineDates() {
-        const today = new Date();
-        const formatDate = (dateObj) => {
-            let d = dateObj.getDate();
-            let m = dateObj.getMonth() + 1;
-            return `${d < 10 ? '0' + d : d}/${m < 10 ? '0' + m : m}`;
-        };
-        const dMinus4 = new Date(); dMinus4.setDate(today.getDate() - 4);
-        const dMinus3 = new Date(); dMinus3.setDate(today.getDate() - 3);
-        return ["Giá Gốc", formatDate(dMinus4), formatDate(dMinus3), "Hôm qua", "Hôm nay", "Tương lai (Dự kiến)"];
-    }
-
-    const timelineLabels = generateTimelineDates();
-
-    const coreDatabase = {
-        watering_can: {
-            name: "Super Watering Can",
-            img: "https://static.wikia.nocookie.net/growagarden27847/images/f/fd/SuperWateringCan.png/revision/latest/scale-to-width/360?cb=20260612205729",
-            chartColor: "#ef4444", gradientColor: "rgba(239, 68, 68, 0.12)",
-            chartData: [1000000, 15000000, 9500000, 6000000, 4200000, 3000000]
-        },
-        sprinkler: {
-            name: "Super Sprinkler",
-            img: "https://static.wikia.nocookie.net/growagarden27847/images/f/fc/SuperSprinkler.png/revision/latest?cb=20260612205938",
-            chartColor: "#10b981", gradientColor: "rgba(16, 185, 129, 0.12)",
-            chartData: [3000000, 2000000, 5000000, 4000000, 10000000, 14000000]
-        },
-        legend_sprinkler: {
-            name: "Legendary Sprinkler",
-            img: "https://static.wikia.nocookie.net/growagarden27847/images/d/d8/LegendarySprinkler.png/revision/latest/scale-to-width/360?cb=20260612205838",
-            chartColor: "#f59e0b", gradientColor: "rgba(245, 158, 11, 0.12)",
-            chartData: [1200000, 900000, 4000000, 3500000, 12000000, 18000000]
-        }
-    };
-
-    const defaultUsers = { "Hoang": "12345hoang" };
-    let chartInstance = null;
-    let currentAuthTab = 'login';
-    let totalSeconds = 0;
-
-    function loadDB() {
-        if (!localStorage.getItem('garden_v5_db')) {
-            localStorage.setItem('garden_v5_db', JSON.stringify(coreDatabase));
-        }
-        return JSON.parse(localStorage.getItem('garden_v5_db'));
-    }
-    function saveDB(data) { 
-        localStorage.setItem('garden_v5_db', JSON.stringify(data));
-        window.dispatchEvent(new Event('storage'));
-    }
-
-    function getUsersDB() {
-        if (!localStorage.getItem('garden_users')) {
-            localStorage.setItem('garden_users', JSON.stringify(defaultUsers));
-        }
-        return JSON.parse(localStorage.getItem('garden_users'));
-    }
-
-    function parseToNumeric(str) {
-        if (!str) return 0;
-        let clean = str.toString().toUpperCase().trim();
-        if (clean.endsWith('M')) return Math.round(parseFloat(clean.replace('M', '')) * 1000000);
-        if (clean.endsWith('K')) return Math.round(parseFloat(clean.replace('K', '')) * 1000);
-        return parseInt(clean.replace(/,/g, '')) || 0;
-    }
-
-    function formatToShortcut(num) {
-        if (num >= 1000000) return (num / 1000000).toFixed(1).replace('.0', '') + 'M';
-        if (num >= 1000) return (num / 1000).toFixed(1).replace('.0', '') + 'K';
-        return num.toString();
-    }
-
-    setInterval(() => {
-        totalSeconds++;
-        const timerEl = document.getElementById('session-timer');
-        if (timerEl) { timerEl.innerText = totalSeconds + ' giây'; }
-    }, 1000);
-
-    function renderHomePrices() {
-        const db = loadDB();
-        document.getElementById('home-price-watering_can').innerText = `Giá hiện tại: ${formatToShortcut(db.watering_can.chartData[4])} sheckles`;
-        document.getElementById('home-price-sprinkler').innerText = `Giá hiện tại: ${formatToShortcut(db.sprinkler.chartData[4])} sheckles`;
-        document.getElementById('home-price-legend_sprinkler').innerText = `Giá hiện tại: ${formatToShortcut(db.legend_sprinkler.chartData[4])} sheckles`;
-    }
-
-    function viewSwitcher(pageId) {
-        document.getElementById('home-page').style.display = pageId === 'home' ? 'block' : 'none';
-        document.getElementById('details-page').style.display = pageId === 'details' ? 'block' : 'none';
-        document.getElementById('profile-page').style.display = pageId === 'profile' ? 'block' : 'none';
-    }
-
-    function backToHome() { viewSwitcher('home'); renderHomePrices(); }
-
-    // Đổi tên trang details thành Analytics
-    function openAnalytics(key) {
-        const db = loadDB();
-        const item = db[key];
-        const base = item.chartData[0];
-        const current = item.chartData[4];
-
-        document.getElementById('item-title').innerText = item.name + " Value Analytics";
-        document.getElementById('item-img').src = item.img;
-        document.getElementById('item-base-price').innerText = `Giá gốc ban đầu: ${base.toLocaleString()} sheckles`;
-        
-        const badge = document.getElementById('item-current-price');
-        const checkUp = current >= base;
-        badge.innerText = `${checkUp ? '📈 Tăng trưởng' : '📉 Suy thoái'} | Hiện tại: ${current.toLocaleString()} sheckles`;
-        
-        badge.style.backgroundColor = checkUp ? "rgba(16, 185, 129, 0.08)" : "rgba(239, 68, 68, 0.08)";
-        badge.style.color = checkUp ? "var(--primary-green)" : "var(--primary-red)";
-        badge.style.borderColor = checkUp ? "rgba(16, 185, 129, 0.2)" : "rgba(239, 68, 68, 0.2)";
-
-        viewSwitcher('details');
-        buildChart(item);
-    }
-
-    function showProfilePage() {
-        viewSwitcher('profile');
-        const currentUser = localStorage.getItem('loggedUser');
-        if (currentUser) {
-            document.getElementById('guest-view').style.display = 'none';
-            document.getElementById('authorized-view').style.display = 'block';
-            document.getElementById('user-display-name').innerText = currentUser;
-
-            const isHoang = currentUser === 'Hoang';
-            document.getElementById('user-role-badge').innerText = isHoang ? "Quản Trị Tối Cao (Admin)" : "Thành viên";
-            document.getElementById('user-role-badge').style.color = isHoang ? "var(--primary-purple)" : "var(--text-main)";
-            document.getElementById('admin-only-panel').style.display = isHoang ? 'block' : 'none';
-            
-            if (isHoang) {
-                document.getElementById('lbl-date-1').innerText = timelineLabels[1];
-                document.getElementById('lbl-date-2').innerText = timelineLabels[2];
-                loadAdminInputs();
-            }
-        } else {
-            document.getElementById('guest-view').style.display = 'block';
-            document.getElementById('authorized-view').style.display = 'none';
-            switchAuthTab('login');
-        }
-    }
-
-    function switchAuthTab(tab) {
-        currentAuthTab = tab;
-        document.getElementById('tab-login').classList.toggle('active', tab === 'login');
-        document.getElementById('tab-register').classList.toggle('active', tab === 'register');
-        document.getElementById('auth-title').innerText = tab === 'login' ? "HỆ THỐNG XÁC MINH BAN QUẢN TRỊ" : "ĐĂNG KÝ THÀNH VIÊN MỚI";
-        document.getElementById('auth-submit-btn').innerText = tab === 'login' ? "Xác nhận đăng nhập" : "Tạo tài khoản mới";
-        document.getElementById('auth-submit-btn').style.background = tab === 'login' ? "var(--primary-blue)" : "var(--primary-green)";
-    }
-
-    function handleAuthAction() {
-        const u = document.getElementById('auth-username').value.trim();
-        const p = document.getElementById('auth-password').value.trim();
-        if (!u || !p) { alert('Vui lòng điền thông tin form yêu cầu!'); return; }
-
-        const users = getUsersDB();
-
-        if (currentAuthTab === 'login') {
-            if (users[u] && users[u] === p) {
-                localStorage.setItem('loggedUser', u);
-                showProfilePage();
-            } else { alert('Thông tin tài khoản hoặc Mật khẩu không chính xác!'); }
-        } else {
-            if (users[u]) { alert('Tài khoản này đã tồn tại trên dữ liệu!'); } 
-            else {
-                users[u] = p;
-                localStorage.setItem('garden_users', JSON.stringify(users));
-                alert('Đăng ký thành công! Hãy tiến hành đăng nhập.');
-                switchAuthTab('login');
-            }
-        }
-    }
-
-    function handleLogout() { localStorage.removeItem('loggedUser'); showProfilePage(); }
-
-    function loadAdminInputs() {
-        const key = document.getElementById('admin-item-select').value;
-        const db = loadDB();
-        const arr = db[key].chartData;
-        document.getElementById('m-base').value = formatToShortcut(arr[0] || 0);
-        document.getElementById('m-m2').value = formatToShortcut(arr[1] || 0);
-        document.getElementById('m-m3').value = formatToShortcut(arr[2] || 0);
-        document.getElementById('m-yesterday').value = formatToShortcut(arr[3] || 0);
-        document.getElementById('m-current').value = formatToShortcut(arr[4] || 0);
-        document.getElementById('m-future').value = formatToShortcut(arr[5] || 0);
-    }
-
-    function saveAdminData() {
-        const key = document.getElementById('admin-item-select').value;
-        const db = loadDB();
-
-        const newArr = [
-            parseToNumeric(document.getElementById('m-base').value),
-            parseToNumeric(document.getElementById('m-m2').value),
-            parseToNumeric(document.getElementById('m-m3').value),
-            parseToNumeric(document.getElementById('m-yesterday').value),
-            parseToNumeric(document.getElementById('m-current').value),
-            parseToNumeric(document.getElementById('m-future').value)
-        ];
-
-        if (newArr.some(v => v < 0)) { alert('Giá trị nhập vào không hợp lệ!'); return; }
-
-        db[key].chartData = newArr;
-        
-        if (newArr[4] >= newArr[0]) {
-            db[key].chartColor = key === 'legend_sprinkler' ? "#f59e0b" : (key === 'sprinkler' ? "#10b981" : "#3b82f6");
-            db[key].gradientColor = key === 'legend_sprinkler' ? "rgba(245, 158, 11, 0.12)" : (key === 'sprinkler' ? "rgba(16, 185, 129, 0.12)" : "rgba(59, 130, 246, 0.12)");
-        } else {
-            db[key].chartColor = "#ef4444";
-            db[key].gradientColor = "rgba(239, 68, 68, 0.12)";
-        }
-
-        saveDB(db);
-        alert('Đồng bộ dữ liệu nâng cao thành công!');
-        backToHome();
-    }
-
-    function buildChart(item) {
-        const ctx = document.getElementById('priceAnalyticsChart').getContext('2d');
-        if (chartInstance) { chartInstance.destroy(); }
-
-        const grad = ctx.createLinearGradient(0, 0, 0, 350);
-        grad.addColorStop(0, item.gradientColor);
-        grad.addColorStop(1, 'rgba(255,255,255,0)');
-
-        chartInstance = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: timelineLabels,
-                datasets: [
-                    {
-                        label: 'Giá thực tế',
-                        data: [...item.chartData.slice(0, 5), null],
-                        borderColor: item.chartColor, borderWidth: 4,
-                        backgroundColor: grad, fill: true, tension: 0.25, pointRadius: 6, pointBackgroundColor: item.chartColor,
-                        pointHoverRadius: 9
-                    },
-                    {
-                        label: 'Dự báo thị trường',
-                        data: [null, null, null, null, item.chartData[4], item.chartData[5]],
-                        borderColor: "#64748b", borderWidth: 2.5, borderDash: [6, 6],
-                        fill: false, tension: 0.25, pointRadius: 6, pointBackgroundColor: "#64748b"
-                    }
-                ]
-            },
-            options: {
-                responsive: true, maintainAspectRatio: false,
-                interaction: { mode: 'index', intersect: false },
-                plugins: { legend: { display: false } },
-                scales: {
-                    y: { grid: { color: 'rgba(15, 23, 42, 0.04)' }, ticks: { color: '#475569', callback: v => formatToShortcut(v) } },
-                    x: { ticks: { color: '#475569', font: { weight: 'bold', size: 12 } }, grid: { display: false } }
-                }
-            }
-        });
-    }
-
-    window.addEventListener('storage', () => {
-        renderHomePrices();
-    });
-
-    renderHomePrices();
-</script>
 
 </body>
 </html>
