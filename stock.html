@@ -3,178 +3,378 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop Roblox - Dịch vụ Game</title>
+    <title>LTCROBLOX.COM - Shop Dịch Vụ Roblox</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            background-color: #f0f4f8;
-            padding: 20px;
+            background-color: #f4f6f9;
+            color: #333;
         }
 
-        /* Thanh tìm kiếm & Lọc */
-        .filter-bar {
+        /* 1. Header Navigation */
+        header {
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 10px 40px;
             display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo img {
+            height: 45px;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 15px;
+            list-style: none;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            color: white;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .nav-blue   { background-color: #3b82f6; }
+        .nav-green  { background-color: #10b981; }
+        .nav-orange { background-color: #f97316; }
+        .nav-cyan   { background-color: #06b6d4; }
+        .nav-red    { background-color: #ef4444; }
+        .nav-gray   { background-color: #64748b; }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
             gap: 10px;
-            justify-content: center;
+            border: 1px solid #e2e8f0;
+            padding: 5px 12px;
+            border-radius: 20px;
+            background-color: #fff;
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: #ddd;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+            font-size: 12px;
+        }
+
+        .user-name { font-weight: bold; }
+        .user-balance { color: #3b82f6; font-weight: bold; }
+
+        /* Container Main Body */
+        .container {
+            max-width: 1100px;
+            margin: 25px auto;
+            padding: 0 15px;
+        }
+
+        /* 2. Banner + Top Nap Section */
+        .top-section {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
             margin-bottom: 20px;
+        }
+
+        .video-box {
+            background-color: #000;
+            border-radius: 10px;
+            overflow: hidden;
+            height: 280px;
+        }
+
+        .video-box iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .top-nap-box {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+
+        .top-nap-header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .top-nap-list {
+            padding: 10px 15px;
+        }
+
+        .top-nap-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dashed #eee;
+            font-size: 13px;
+        }
+
+        .btn-nap-top {
+            display: block;
+            background-color: #007bff;
+            color: #fff;
+            text-align: center;
+            padding: 8px;
+            margin: 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        /* 3. Notice Box */
+        .notice-box {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            margin-bottom: 15px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .notice-title {
+            color: #d9534f;
+            font-weight: bold;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .marquee-box {
+            background: #fff;
+            border-radius: 8px;
+            padding: 8px 15px;
+            margin-bottom: 10px;
+            border: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+        }
+
+        /* 4. Section Titles & Services */
+        .section-title {
+            text-align: center;
+            color: #8a2be2;
+            font-weight: 800;
+            font-size: 20px;
+            margin: 30px 0 20px 0;
+            text-transform: uppercase;
+        }
+
+        .services-grid {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
             flex-wrap: wrap;
         }
 
-        .filter-bar select, .filter-bar input {
-            padding: 8px 12px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            outline: none;
-        }
-
-        .btn-search {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .btn-reset {
-            background-color: #ff4d4f;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        /* Lưới sản phẩm */
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 15px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        /* Thẻ sản phẩm */
-        .card {
-            background-color: #ffffff;
-            border: 2px solid #007bff;
-            border-radius: 8px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        .service-card {
+            background-color: #fff;
+            border-radius: 12px;
+            border: 2px solid #8a2be2;
+            width: 250px;
+            padding: 10px;
             text-align: center;
-            position: relative;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
 
-        .card-header-tag {
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            background-color: #e83e8c;
-            color: white;
-            font-size: 11px;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: bold;
-        }
-
-        .card-img {
+        .service-img {
             width: 100%;
-            height: 120px;
-            background-color: #00a2ff; /* Màu nền giả lập hình ảnh */
+            height: 140px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .service-name {
+            font-weight: bold;
+            font-size: 13px;
+            margin: 10px 0 4px 0;
+        }
+
+        .service-status {
+            color: #28a745;
+            font-size: 11px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .btn-view-all {
+            display: block;
+            background-color: #3b82f6;
+            color: white;
+            padding: 8px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        /* Floating Widget */
+        .online-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #333;
+            color: #fff;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
+            gap: 6px;
         }
-
-        .card-title {
-            background-color: #ff4d4f;
-            color: white;
-            width: 100%;
-            padding: 6px 4px;
-            font-size: 13px;
-            font-weight: bold;
-        }
-
-        .card-price-btn {
-            background-color: #007bff;
-            color: white;
-            width: 90%;
-            margin: 8px 0;
-            padding: 8px;
-            border: none;
-            border-radius: 5px;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 13px;
-        }
-
-        .card-price-btn:hover {
-            background-color: #0056b3;
+        .online-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #28a745;
+            border-radius: 50%;
         }
     </style>
 </head>
 <body>
 
-    <!-- Thanh Lọc & Tìm kiếm -->
-    <div class="filter-bar">
-        <select>
-            <option>Tất cả</option>
-        </select>
-        <select>
-            <option>Mặc định</option>
-        </select>
-        <input type="text" placeholder="Tìm kiếm mã sản phẩm, trang phục,...">
-        <button class="btn-search">🔍 Tìm Kiếm</button>
-        <button class="btn-reset">🗑 Đặt Lại</button>
+    <!-- 1. HEADER -->
+    <header>
+        <div class="logo">
+            <!-- Thay đường dẫn ảnh logo ở đây -->
+            <img src="logo.png" alt="LTCROBLOX.COM" onerror="this.src='https://via.placeholder.com/150x45?text=LTCROBLOX.COM'">
+        </div>
+
+        <nav>
+            <ul class="nav-menu">
+                <li><a href="#" class="nav-item nav-blue"><i class="fa-solid fa-house"></i> TRANG CHỦ</a></li>
+                <li><a href="#" class="nav-item nav-green"><i class="fa-solid fa-gamepad"></i> LỊCH SỬ MUA NICK</a></li>
+                <li><a href="#" class="nav-item nav-orange"><i class="fa-solid fa-layer-group"></i> DỊCH VỤ KHÁC</a></li>
+                <li><a href="#" class="nav-item nav-cyan"><i class="fa-solid fa-user"></i> TÀI KHOẢN</a></li>
+                <li><a href="#" class="nav-item nav-red"><i class="fa-solid fa-wallet"></i> NẠP TIỀN</a></li>
+                <li><a href="#" class="nav-item nav-gray"><i class="fa-solid fa-dollar-sign"></i> DÒNG TIỀN</a></li>
+                <li><a href="#" class="nav-item nav-cyan"><i class="fa-solid fa-newspaper"></i> TIN TỨC</a></li>
+            </ul>
+        </nav>
+
+        <div class="user-profile">
+            <div class="user-avatar"></div>
+            <div class="user-info">
+                <span class="user-name">anhduy442 <i class="fa-solid fa-chevron-down"></i></span>
+                <span class="user-balance">0 đ</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <div class="container">
+
+        <!-- 2. BANNER & TOP NAP -->
+        <div class="top-section">
+            <div class="video-box">
+                <!-- Nhúng Video Youtube -->
+                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video player" allowfullscreen></iframe>
+            </div>
+
+            <div class="top-nap-box">
+                <div class="top-nap-header">
+                    🏆 TOP Nạp Tháng 07/2026
+                </div>
+                <div class="top-nap-list">
+                    <div class="top-nap-item">
+                        <span>🥇 chz*******</span>
+                        <span style="color: #d9534f; font-weight: bold;">+380.000 đ</span>
+                    </div>
+                    <div class="top-nap-item">
+                        <span>🥈 gia*******</span>
+                        <span style="color: #d9534f; font-weight: bold;">+340.000 đ</span>
+                    </div>
+                    <div class="top-nap-item">
+                        <span>🥉 luk***</span>
+                        <span style="color: #d9534f; font-weight: bold;">+290.000 đ</span>
+                    </div>
+                    <div class="top-nap-item">
+                        <span>4. nha****</span>
+                        <span style="color: #d9534f; font-weight: bold;">+280.000 đ</span>
+                    </div>
+                    <div class="top-nap-item">
+                        <span>5. vin****</span>
+                        <span style="color: #d9534f; font-weight: bold;">+255.000 đ</span>
+                    </div>
+                </div>
+                <a href="#" class="btn-nap-top">👉 NẠP TIỀN NGAY 👈</a>
+            </div>
+        </div>
+
+        <!-- 3. THÔNG BÁO -->
+        <div class="notice-box">
+            <b>Shop Linne Hiện Tại Ngưng Nhận Tiền Bank Chỉ Nhận Card, Anh Em Bank Nhắn Riêng Linne Mua Nha &lt;3</b>
+            <div class="notice-title">Tên Shop: &gt; <span style="color:#ef4444">Ltcroblox.com</span> &lt; Cho Ae Không Biết Nha</div>
+        </div>
+
+        <div class="marquee-box">
+            <i class="fa-solid fa-volume-high" style="color: #007bff;"></i>
+            <marquee font-weight="bold">LTCROBLOX.COM - Shop Dịch Vụ Uy Tín Hàng Đầu!</marquee>
+        </div>
+
+        <!-- 4. DỊCH VỤ GROW A GARDEN 2 -->
+        <div class="section-title">DỊCH VỤ GROW A GARDEN 2</div>
+
+        <div class="services-grid">
+            <!-- Card 1 -->
+            <div class="service-card">
+                <!-- Thay ảnh banner dịch vụ ở đây -->
+                <img src="seed_gag2.jpg" class="service-img" alt="Seed Gag 2" onerror="this.src='https://via.placeholder.com/250x140?text=SEED+GAG+2'">
+                <div class="service-name">DỊCH VỤ SEED GROW A GARDEN 2</div>
+                <div class="service-status">Sẵn Sàng</div>
+                <a href="#" class="btn-view-all">XEM TẤT CẢ ➔</a>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="service-card">
+                <!-- Thay ảnh banner dịch vụ ở đây -->
+                <img src="pet_gag2.jpg" class="service-img" alt="Pet Gag 2" onerror="this.src='https://via.placeholder.com/250x140?text=PET+GAG+2'">
+                <div class="service-name">Dịch Vụ Pet GAG2</div>
+                <div class="service-status">Sẵn Sàng</div>
+                <a href="#" class="btn-view-all">XEM TẤT CẢ ➔</a>
+            </div>
+        </div>
+
     </div>
 
-    <!-- Danh sách sản phẩm -->
-    <div class="product-grid">
-        
-        <!-- Sản phẩm 1 -->
-        <div class="card">
-            <span class="card-header-tag">MS: 26076514</span>
-            <div class="card-img">[Ảnh Hạt Fruit]</div>
-            <div class="card-title">X1 Hạt Star Fruit</div>
-            <button class="card-price-btn">🛒 20.000 đ</button>
-        </div>
-
-        <!-- Sản phẩm 2 -->
-        <div class="card">
-            <span class="card-header-tag">MS: 26070647</span>
-            <div class="card-img">[Ảnh Hạt Sun]</div>
-            <div class="card-title">X2 Hạt Sun Bloom</div>
-            <button class="card-price-btn">🛒 10.000 đ</button>
-        </div>
-
-        <!-- Sản phẩm 3 -->
-        <div class="card">
-            <span class="card-header-tag">MS: 26077847</span>
-            <div class="card-img">[Ảnh Vòi Sprinkler]</div>
-            <div class="card-title">X50 Vòi Super Sprinkler</div>
-            <button class="card-price-btn">🛒 20.000 đ</button>
-        </div>
-
-        <!-- Sản phẩm 4 -->
-        <div class="card">
-            <span class="card-header-tag">MS: 26070082</span>
-            <div class="card-img">[Ảnh Ghost Pepper]</div>
-            <div class="card-title">X6 Hạt Ghost Pepper</div>
-            <button class="card-price-btn">🛒 30.000 đ</button>
-        </div>
-
+    <!-- ONLINE WIDGET -->
+    <div class="online-widget">
+        <div class="online-dot"></div>
+        <span>2 online</span>
     </div>
 
 </body>
